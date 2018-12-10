@@ -1,0 +1,22 @@
+{% extends "base.html"%}
+
+{% block content %}
+    <div class="login">
+        <form method="post" action="">
+            <table class="login_table">
+                <tr>
+                    <td>用户名</td>
+                    <td><input class="text_input" type="text" name="username"></td>
+                </tr>
+                <tr>
+                    <td>密码</td>
+                    <td><input class="text_input" type="password" name="password"></td>
+                </tr>
+            </table>
+            <div class="button_login">
+                <input class="button" type="submit" value="登录">
+                <input class="button" type="button" onclick="location.href='register'" value="注册" >
+            </div>
+        </form>
+    </div>
+{% endblock %}

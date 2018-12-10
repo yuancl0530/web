@@ -1,0 +1,9 @@
+{% extends "base.html"%}
+{% block head%}
+    {{super()}}
+    <link rel="stylesheet" href="/static/blog.css" />
+{%endblock%}
+{% block content %}
+<h2>{{blog.title}}</h2>
+<p>{{blog.text}}</p>
+{% endblock %}

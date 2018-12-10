@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    {% block head %}
+    <link rel="stylesheet" href="/static/style.css" />
+    <title>{% block title %}{% endblock %} {{ title }}</title>
+    {% endblock %}
+</head>
+<body>
+    {% if  msg %}
+    <div class="alert">
+        <script type="text/javascript">
+            alert("{{msg}}")
+        </script>
+    </div>
+    {% endif %}
+    <div class="navbar">
+        <ul>
+            <li><a href="/blog">博客广场</a></li>
+            <li><a href="/blog/myblog">我的博客</a></li>
+        </ul>
+    </div>
+
+    <div id="content">{% block content%}{% endblock %}</div>
+    <div id="footer">
+        <p >&copy; Copyright 2018 by Chenglei Yuan</p>
+    </div>
+</body>
+</html>

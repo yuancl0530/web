@@ -1,0 +1,26 @@
+{% extends "base.html"%}
+{% block head%}
+    {{super()}}
+    <link rel="stylesheet" href="/static/blog.css" />
+{%endblock%}
+{% block content %}
+<table class="blogs">
+    <thead>
+        <tr>
+            <th>标题</th>
+            <th>作者</th>
+            <th>创建日期</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for blog in blogs%}
+        <tr>
+            <td><a href="/blog/{{blog.id}}">{{blog.title}}</a></td>
+            <td>{{blog.username}}</td>
+            <td>{{blog.create_time}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+{% endblock %}

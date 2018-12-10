@@ -1,0 +1,103 @@
+/*登录页面*/
+.login{
+    position: absolute;
+    left: 60%;
+    top: 20%;
+    width: 350px;
+    height: 200px;
+    text-align: center;
+    line-height: 50px;
+    background-color: lightskyblue;
+}
+.login_table{
+    position: relative;
+    top: 30px;
+    font-size: 20px;
+    margin: auto;
+}
+.button{
+    font-size: 16px;
+    width: 100px;
+    height: 30px;
+    border: #86989B;
+    background-color: #86989B;
+}
+.button_login{
+    position: absolute;
+    width: 350px;
+    bottom: 5px;
+}
+.text_input{
+    height: 20px;
+    background-color: #BFDDE0;
+}
+/*注册页面*/
+.register_table{
+    position: relative;
+    top: 30px;
+    font-size: 20px;
+    margin: auto;
+}
+.register{
+    position: absolute;
+    left: 5%;
+    top: 20%;
+    width: 400px;
+    height: 500px;
+    text-align: center;
+    line-height: 50px;
+    background-color: lightskyblue;
+}
+.button_register{
+    position: absolute;
+    width: 400px;
+    bottom: 5px;
+}
+
+/*导航条*/
+.navbar{
+    width: 100%;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.navbar li {
+    float: left;
+}
+
+.navbar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/*鼠标移动到选项上修改背景颜色 */
+.navbar li a:hover {
+    background-color: #111;
+}
+
+#footer{
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    left: 0px;
+    bottom: 0;
+    background-color: #333;
+    text-align: center;
+    color: #BFDDE0;
+}
+#footer p{
+    margin: auto;
+    line-height: 25px;
+}
+
+#content{
+    width: 100%;
+}
