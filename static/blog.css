@@ -1,7 +1,5 @@
 
 .blog_text{
-    height: 600px;
-    width: 700px;
     background-color: #BFDDE0;
 }
 .blog_text textarea{
@@ -9,4 +7,50 @@
     width: 650px;
     display: block;
     margin: auto;
+}
+.blog_submit{
+
+}
+
+/*博客列表*/
+.blogs{
+    position: relative;
+    top: 20px;
+    margin: auto;
+    background-color: #A5D6D9;
+    text-align: center;
+    border: #9c8468 1px solid;
+}
+
+
+/****************/
+.blog_container{
+    width: 70%;
+    margin: auto;
+}
+.blog_itmes{
+    border: #a7d9c4 1px solid;
+    width: 70%;
+    margin: auto;
+    padding: 5px;
+}
+.blog_title {
+    height: 40px;
+    font-size: 40px;
+    color: #455a6e;
+    text-decoration: none;
+}
+.blog_info{
+    text-align: right;
+    font-size: 15px;
+}
+
+
+
+.blog_form{
+    margin: 5% 10%;
+}
+
+.new_blog_text{
+    resize: none;
 }

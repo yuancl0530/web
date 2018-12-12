@@ -8,48 +8,43 @@
 
     <div class="register">
         <form method="post" onsubmit="return check()" action="">
-            <table class="register_table">
-                <tr>
-                    <td>用户名</td>
-                    <td><input id="username" type="text" name="username" maxlength=15></td>
-                </tr>
-                <tr>
-                    <td>密码</td>
-                    <td><input id="password" type="password" name="password"></td>
-                </tr>
-
-                <tr>
-                    <td>确认密码</td>
-                    <td><input id="password_confirm" type="password" name="password_confirm" ></td>
-                </tr>
-
-                <tr>
-                    <td>性别</td>
-                    <td>
-                        <select name="sex">
-                            <option value="male">男</option>
-                            <option value="female">女</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>学校</td>
-                    <td><input id="school" type="text" name="school"><br></td>
-                </tr>
-                <tr>
-                    <td>专业</td>
-                    <td><input id="major" type="text" name="major"><br></td>
-                </tr>
-                <tr>
-                    <td>电话</td>
-                    <td><input id="phone"  type="text" name="phone" ></td>
-                </tr>
-
-            </table>
-            <div class="button_register">
-                <input class="button" type="submit"  value="注册">
-                <input class="button" type="reset" value="重置">
+            <div class="form-group">
+                <label for="register_username">用户名</label>
+                <input type="text" class="form-control" id="register_username" placeholder="用户名" name="username">
             </div>
+            <div class="form-group">
+                <label for="register_password">密码</label>
+                <input type="password" class="form-control" id="register_password" placeholder="密码" name="password">
+            </div>
+
+            <div class="form-group">
+                <label for="register_password_confirm">确认密码</label>
+                <input type="password" class="form-control" id="register_password_confirm" placeholder="确认密码" name="password_confirm">
+            </div>
+            <div class="form-group">
+                <label for="register_sex">性别</label>
+                <select class="btn btn-default dropdown-toggle" id="register_sex" name="sex">
+                    <option value="male">男</option>
+                    <option value="female">女</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="register_school">学校</label>
+                <input type="text" class="form-control" id="register_school" placeholder="学校" name="school">
+            </div>
+            <div class="form-group">
+                <label for="register_major">专业</label>
+                <input type="text" class="form-control" id="register_major" placeholder="专业" name="major">
+            </div>
+            <div class="form-group">
+                <label for="register_phone">手机号码</label>
+                <input type="text" class="form-control" id="register_phone" placeholder="手机号码" name="phone">
+            </div>
+            <div class="register_button">
+                <input class="btn btn-default" type="submit"  value="注册">
+                <input class="btn btn-default" type="reset" value="重置">
+            </div>
+
         </form>
     </div>
 

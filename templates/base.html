@@ -4,10 +4,12 @@
     <meta charset="utf-8">
     {% block head %}
     <link rel="stylesheet" href="/static/style.css" />
+    <link rel="stylesheet" href="/static/bootstrap/dist/css/bootstrap.css" />
     <title>{% block title %}{% endblock %} {{ title }}</title>
     {% endblock %}
 </head>
 <body>
+<div class="container">
     {% if  msg %}
     <div class="alert">
         <script type="text/javascript">
@@ -19,12 +21,35 @@
         <ul>
             <li><a href="/blog">博客广场</a></li>
             <li><a href="/blog/myblog">我的博客</a></li>
+            <div class="nav_login">
+                {% if current_user.is_authenticated%}
+
+                <li><a href="/logout">登出</a></li>
+                {% else %}
+                <li><a href="/login">登录</a></li>
+                {% endif %}
+            </div>
         </ul>
     </div>
 
-    <div id="content">{% block content%}{% endblock %}</div>
-    <div id="footer">
-        <p >&copy; Copyright 2018 by Chenglei Yuan</p>
+    <div id="content">
+        {% block content%}
+        <div class="jumbotron">
+          <h1>Hello, {{current_user.username}}</h1>
+          <p>欢迎来到博客世界</p>
+          <p><a class="btn btn-primary btn-lg" href="/blog/newblog" role="button">写博客</a></p>
+        </div>
+        {% endblock %}
     </div>
+
+
+        <!--<div class="grid">-->
+            <!--<div class="unit one-third center-on-mobiles">-->
+                <!--<p >&copy; Copyright 2018 by Chenglei Yuan</p>-->
+            <!--</div>-->
+        <!--</div>-->
+
+
+</div>
 </body>
 </html>

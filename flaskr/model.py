@@ -1,17 +1,12 @@
 from . import db
-import hashlib, os
 from datetime import datetime
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
-def password_hash(password):
-    ha = hashlib.md5()
-    ha.update(bytes(password+os.getenv('FLASK_SALT'), encoding='utf-8'))
-    return ha.hexdigest()
-
-
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = 'users'
-    user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(10), nullable=False)
     password_hash = db.Column(db.String(64), nullable=False)
     sex = db.Column(db.Enum("male", "female"), nullable=False)
@@ -19,8 +14,8 @@ class User(db.Model):
     major = db.Column(db.String(20), nullable=False)
     phone = db.Column(db.String(11), nullable=False)
 
-    def verify_password(self, value):
-        return self.password_hash == password_hash(value)
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
     @property
     def password(self):
@@ -28,7 +23,10 @@ class User(db.Model):
 
     @password.setter
     def password(self, password):
-        self.password_hash = password_hash(password)
+        self.password_hash = generate_password_hash(password)
+
+
+
 
 
 class Blog(db.Model):
@@ -36,7 +34,7 @@ class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(128), nullable=False)
     text = db.Column(db.TEXT, nullable=False)
-    uid = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    uid = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     create_time = db.Column(db.DateTime, default=datetime.now)
     public = db.Column(db.Boolean, nullable=False)
 

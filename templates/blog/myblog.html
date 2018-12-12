@@ -2,24 +2,20 @@
 {% block head%}
     {{super()}}
     <link rel="stylesheet" href="/static/blog.css" />
+    <script type="text/javascript" src="/static/register.js"></script>
 {%endblock%}
 {% block content %}
-<a href="/blog/newblog">写博客</a>
-<table class="blogs">
-    <thead>
-        <tr>
-            <th>标题</th>
-            <th>创建日期</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for blog in blogs%}
-        <tr>
-            <td><a href="myblog/{{blog.id}}">{{blog.title}}</a></td>
-            <td>{{blog.create_time}}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
+<button type="button" id="writeblog" onclick="writeablog()" class="btn btn-primary">
+  写博客
+</button>
 
-</table>
+<div class="blog_container">
+    {% for blog in blogs%}
+    <div class="blog_itmes">
+        <a class="blog_title" href="/blog/{{blog.id}}">{{blog.title}}</a>
+        <p class="blog_info">时间：{{blog.create_time}} 作者：{{blog.username}} </p>
+    </div>
+
+    {% endfor %}
+</div>
 {% endblock %}

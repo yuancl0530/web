@@ -1,41 +1,41 @@
 from flask import Blueprint, render_template, request, redirect, make_response
 from .model import  Blog
 from . import db
-from .auth import LoginManger
 from .model import Blog, User
-import json
+from flask_login import login_required, current_user
+
 
 bp = Blueprint('blog', __name__, url_prefix='/blog')
 
 
 @bp.route('/')
-@LoginManger.is_login
+@login_required
 def home():
     blogs = db.session.query(Blog.title,Blog.text,Blog.create_time,Blog.id,User.username).filter(Blog.public==True).\
-        join(User, User.user_id==Blog.uid).\
+        join(User, User.id==Blog.uid).\
         all()
     return render_template('blog/bloglist.html', blogs=blogs)
 
 
 @bp.route('/myblog')
-@LoginManger.is_login
+@login_required
 def myblog():
-    blogs = Blog.query.filter_by(uid=int(request.cookies.get('user_id')))
+    blogs = Blog.query.filter_by(uid=current_user.id)
     return render_template('blog/myblog.html', blogs=blogs)
 
 
 @bp.route('/newblog', methods=['GET','POST'])
-@LoginManger.is_login
+@login_required
 def newblog():
     if request.method == 'POST':
         b = Blog()
 
         b.title = request.form['title']
         b.text = request.form['text']
-        b.uid = request.cookies.get('user_id')
+        b.uid = current_user.id
 
         try:
-            b.public = int(request.form['public']):
+            b.public = int(request.form['public'])
         except:
             b.public = 0
 
@@ -54,11 +54,11 @@ def newblog():
     return response
 
 @bp.route('/<id>')
-@LoginManger.is_login
+@login_required
 def showablog(id):
     blog = db.session.query(Blog.title, Blog.text, Blog.create_time, Blog.id, User.username).filter(
         Blog.public == True, Blog.id==id). \
-        join(User, User.user_id == Blog.uid). \
+        join(User, User.id == Blog.uid). \
         first()
     msg=''
     title=''
@@ -70,11 +70,11 @@ def showablog(id):
 
 
 @bp.route('/myblog/<id>')
-@LoginManger.is_login
+@login_required
 def showmyblog(id):
     blog = db.session.query(Blog.title, Blog.text, Blog.create_time, Blog.uid,Blog.id, User.username).filter(
          Blog.id==id). \
-        join(User, User.user_id == Blog.uid). \
+        join(User, User.id == Blog.uid). \
         first()
     msg=''
     title=''

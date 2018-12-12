@@ -3,20 +3,19 @@
 {% block content %}
     <div class="login">
         <form method="post" action="">
-            <table class="login_table">
-                <tr>
-                    <td>用户名</td>
-                    <td><input class="text_input" type="text" name="username"></td>
-                </tr>
-                <tr>
-                    <td>密码</td>
-                    <td><input class="text_input" type="password" name="password"></td>
-                </tr>
-            </table>
-            <div class="button_login">
-                <input class="button" type="submit" value="登录">
-                <input class="button" type="button" onclick="location.href='register'" value="注册" >
+            <div class="form-group">
+                <label for="login_username">用户名</label>
+                <input type="text" class="form-control" id="login_username" placeholder="用户名" name="username">
             </div>
+            <div class="form-group">
+                <label for="login_password">密码</label>
+                <input type="password" class="form-control" id="login_password" placeholder="密码" name="password">
+            </div>
+            <div class="login_button">
+                <input type="submit" class="btn btn-default" value="登录">
+                <a href="/register"><button class="btn btn-default"  type="button">注册</button></a>
+            </div>
+
         </form>
     </div>
 {% endblock %}

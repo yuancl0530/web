@@ -1,13 +1,23 @@
 from flask import Blueprint, render_template, request, redirect, make_response
 from .model import User
-from . import db
-import functools
+from . import db, login_manager
+from flask_login import login_user, logout_user
+
 
 bp = Blueprint('auth', __name__, url_prefix='/')
 
 
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
+
+
+@bp.route('/')
+def index():
+    return render_template("base.html", title='欢迎')
+
+
 @bp.route('/login', methods=('GET','POST'))
-@bp.route('/', methods=('GET','POST'))
 def login():
     title = "登录"
     if request.method == 'POST':
@@ -16,10 +26,15 @@ def login():
             msg = '用户名或密码错误'
             response = make_response(render_template("auth/login.html", title=title, msg=msg))
             return response
-        response = make_response(render_template("base.html", title=title))
-        LoginManger.login(u, response)
-        return response
+        login_user(u)
+        return redirect('/')
     return render_template("auth/login.html",  title=title)
+
+
+@bp.route('/logout')
+def logout():
+    logout_user()
+    return redirect('/login')
 
 
 @bp.route('/register', methods=('GET','POST'))
@@ -48,21 +63,5 @@ def register():
     return render_template("auth/register.html")
 
 
-class LoginManger:
-    @staticmethod
-    def login(user, response):
-        response.set_cookie('user_id', str(user.user_id))
 
 
-    def is_login(func):
-        @functools.wraps(func)
-        def inner(*args, **kwargs):
-            user_id = request.cookies.get('user_id').encode('ascii')
-
-
-            u = User.query.filter_by(user_id=int(user_id)).first()
-            if not u:
-                return redirect('/')
-            print(u)
-            return func(*args, **kwargs)
-        return inner
