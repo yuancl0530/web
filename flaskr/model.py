@@ -8,7 +8,7 @@ class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(10), nullable=False)
-    password_hash = db.Column(db.String(64), nullable=False)
+    password_hash = db.Column(db.String(128), nullable=False)
     sex = db.Column(db.Enum("male", "female"), nullable=False)
     school = db.Column(db.String(20), nullable=False)
     major = db.Column(db.String(20), nullable=False)
