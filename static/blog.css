@@ -3,13 +3,11 @@
     background-color: #BFDDE0;
 }
 .blog_text textarea{
-    height: 500px;
-    width: 650px;
     display: block;
     margin: auto;
 }
 .blog_submit{
-
+    padding: 5px;
 }
 
 /*博客列表*/
@@ -26,7 +24,7 @@
 /****************/
 .blog_container{
     width: 70%;
-    margin: auto;
+    
 }
 .blog_itmes{
     border: #a7d9c4 1px solid;
@@ -53,4 +51,5 @@
 
 .new_blog_text{
     resize: none;
+    margin: 5px;
 }

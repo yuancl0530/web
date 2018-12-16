@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, make_response
 from .model import User
 from . import db, login_manager
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required
 
 
 bp = Blueprint('auth', __name__, url_prefix='/')
@@ -13,6 +13,7 @@ def load_user(id):
 
 
 @bp.route('/')
+@login_required
 def index():
     return render_template("base.html", title='欢迎')
 

@@ -8,7 +8,7 @@
     margin: auto;
     width: 20%;
     padding: 10px;
-    background-color: lightskyblue;
+    background-color: #5eacc3;
 }
 .login_button{
     text-align: center;
@@ -23,8 +23,8 @@
     padding: 10px;
     background-color: lightskyblue;
 }
-.button_register{
-    width: 400px;
+.register_button{
+    text-align: center;
 }
 
 /*导航条*/

@@ -3,6 +3,7 @@ from config import config
 import os
 from flaskr import db, login_manager
 
+
 app = Flask(__name__,
             template_folder="templates",
             static_folder="static")

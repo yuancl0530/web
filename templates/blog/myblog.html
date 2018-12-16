@@ -12,8 +12,11 @@
 <div class="blog_container">
     {% for blog in blogs%}
     <div class="blog_itmes">
-        <a class="blog_title" href="/blog/{{blog.id}}">{{blog.title}}</a>
-        <p class="blog_info">时间：{{blog.create_time}} 作者：{{blog.username}} </p>
+        <a class="blog_title" href="/blog/myblog/{{blog.id}}">{{blog.title}}</a>
+        <p class="blog_info">
+            时间：{{blog.create_time}}
+            <a href="/blog/delete/{{blog.id}}">删除</a>
+        </p>
     </div>
 
     {% endfor %}

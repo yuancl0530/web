@@ -1,5 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, make_response
-from .model import  Blog
+from flask import Blueprint, render_template, request, redirect, make_response, flash
 from . import db
 from .model import Blog, User
 from flask_login import login_required, current_user
@@ -39,7 +38,6 @@ def newblog():
         except:
             b.public = 0
 
-        print(b.title+" "+str(b.public)+" "+b.text+" "+str(b.uid))
         db.session.add(b)
         db.session.commit()
         try:
@@ -56,8 +54,8 @@ def newblog():
 @bp.route('/<id>')
 @login_required
 def showablog(id):
-    blog = db.session.query(Blog.title, Blog.text, Blog.create_time, Blog.id, User.username).filter(
-        Blog.public == True, Blog.id==id). \
+    blog = db.session.query(Blog.title, Blog.text, Blog.create_time, Blog.id, User.username).\
+        filter(Blog.public == True, Blog.id==id). \
         join(User, User.id == Blog.uid). \
         first()
     msg=''
@@ -72,17 +70,38 @@ def showablog(id):
 @bp.route('/myblog/<id>')
 @login_required
 def showmyblog(id):
-    blog = db.session.query(Blog.title, Blog.text, Blog.create_time, Blog.uid,Blog.id, User.username).filter(
+    blog = db.session.query(Blog.title, Blog.text, Blog.create_time, Blog.uid, Blog.id, User.username).filter(
          Blog.id==id). \
         join(User, User.id == Blog.uid). \
         first()
     msg=''
     title=''
+    print(blog.uid)
+    print(current_user.id)
     if not blog:
         title=msg="博客不存在"
-    elif blog.uid != int(request.cookies.get("user_id", default=0)):
+    elif blog.uid != current_user.id:
         title = msg = "无权限访问"
         blog=None
     else:
         title=blog.title
     return render_template('blog/showablog.html', blog=blog,msg=msg,title=title)
+
+
+@bp.route('/delete/<id>')
+@login_required
+def delete_a_blog(id):
+    id = int(id)
+    blog = Blog.query.filter_by(id=id).first()
+    if not blog:
+        flash('博客不能存在')
+    elif blog.uid != current_user.id:
+        flash('没有权限')
+    else:
+        try:
+            db.session.delete(blog)
+            db.session.commit()
+        except :
+            flash('系统错误')
+            db.session.rollback()
+    return redirect('/blog/myblog')
