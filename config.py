@@ -6,7 +6,7 @@ class Config(object):
 
 
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:053097@localhost/blog'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://@localhost/blog'
     SECRET_KEY = os.getenv('SECRET_KEY')
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
