@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, make_response
-from .model import User
+from .model import User, Log
 from . import db, login_manager
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 
 
 bp = Blueprint('auth', __name__, url_prefix='/')
@@ -28,12 +28,15 @@ def login():
             response = make_response(render_template("auth/login.html", title=title, msg=msg))
             return response
         login_user(u)
+        Logs.login(u.id)
         return redirect('/')
     return render_template("auth/login.html",  title=title)
 
 
 @bp.route('/logout')
+@login_required
 def logout():
+    Logs.logout(current_user.id)
     logout_user()
     return redirect('/login')
 
@@ -64,5 +67,25 @@ def register():
     return render_template("auth/register.html")
 
 
+class Logs():
+    @staticmethod
+    def logs(event, uid=None):
+        log = Log(event=event, uid=uid)
+        try:
+            db.session.add(log)
+            db.session.commit()
+        except :
+            db.session.rollback()
 
+    @staticmethod
+    def login(uid):
+        u = User.query.filter_by(id=uid).first()
+        if u:
+            Logs.logs('user '+u.username+' login', uid=u.id)
+
+    @staticmethod
+    def logout(uid):
+        u = User.query.filter_by(id=uid).first()
+        if u:
+            Logs.logs('user ' + u.username + ' logout', uid=u.id)
 

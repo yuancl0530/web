@@ -26,9 +26,6 @@ class User(UserMixin, db.Model):
         self.password_hash = generate_password_hash(password)
 
 
-
-
-
 class Blog(db.Model):
     __tablename__='blogs'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -39,6 +36,9 @@ class Blog(db.Model):
     public = db.Column(db.Boolean, nullable=False)
 
 
-
-
-
+class Log(db.Model):
+    __tablename__='logs'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    event = db.Column(db.Text, nullable=False)
+    uid = db.Column(db.Integer, nullable=True)
+    time = db.Column(db.DateTime, default=datetime.now)

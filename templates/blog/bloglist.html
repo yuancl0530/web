@@ -10,9 +10,8 @@
     {% for blog in blogs%}
     <div class="blog_itmes">
         <a class="blog_title" href="/blog/{{blog.id}}">{{blog.title}}</a>
-        <p class="blog_info">时间：{{blog.create_time}} 作者：{{blog.username}} </p>
+        <p class="blog_info">时间：{{blog.create_time }} 作者：{{blog.username}} </p>
     </div>
-
     {% endfor %}
 </div>
 {% endblock %}
