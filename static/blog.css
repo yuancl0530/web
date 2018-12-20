@@ -1,6 +1,7 @@
 
 .blog_text{
     background-color: #BFDDE0;
+    border-radius: 10px;
 }
 .blog_text textarea{
     display: block;
@@ -27,9 +28,10 @@
     
 }
 .blog_itmes{
-    border: #a7d9c4 1px solid;
+    border: #96a0d9 1px solid;
+    border-radius: 10px;
     width: 70%;
-    margin: auto;
+    margin: 10px auto;
     padding: 5px;
 }
 .blog_title {
@@ -53,3 +55,5 @@
     resize: none;
     margin: 5px;
 }
+
+.showablog{margin: 10px;}

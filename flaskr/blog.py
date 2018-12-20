@@ -37,34 +37,59 @@ def newblog():
             b.public = int(request.form['public'])
         except:
             b.public = 0
-
-        db.session.add(b)
-        db.session.commit()
         try:
             db.session.add(b)
             db.session.commit()
         except:
-            msg = "系统错误"
-            response = make_response(render_template('blog/newblog.html', title="新博客", msg=msg))
+            flash("系统错误")
+            response = make_response(render_template('blog/newblog.html', title="新博客"))
             return response
         return redirect('/blog/myblog')
-    response = make_response(render_template('blog/newblog.html', title="新博客"))
+    blog = Blog()
+    blog.title = ''
+    blog.text = ''
+    response = make_response(render_template('blog/newblog.html', title="新博客", blog=blog))
     return response
+
+
+@bp.route('/edit/<id>', methods=['GET','POST'])
+@login_required
+def editblog(id):
+    blog = Blog.query.filter_by(id=int(id)).first()
+    if request.method == 'POST':
+        blog.title = request.form['title']
+        blog.text = request.form['text']
+
+        try:
+            blog.public = int(request.form['public'])
+        except:
+            blog.public = 0
+        try:
+            db.session.add(blog)
+            db.session.commit()
+        except:
+            flash("系统错误")
+            response = make_response(render_template('blog/newblog.html', title="新博客"))
+            return response
+        return redirect('/blog/myblog')
+    response = make_response(render_template('blog/newblog.html', title=blog.title, blog=blog))
+    return response
+
 
 @bp.route('/<id>')
 @login_required
 def showablog(id):
-    blog = db.session.query(Blog.title, Blog.text, Blog.create_time, Blog.id, User.username).\
+    blog = db.session.query(Blog.title, Blog.text, Blog.create_time, Blog.id, Blog.uid, User.username).\
         filter(Blog.public == True, Blog.id==id). \
         join(User, User.id == Blog.uid). \
         first()
-    msg=''
     title=''
     if not blog:
-        title=msg="无权限访问"
+        flash("无权限访问")
+        title="无权限访问"
     else:
         title=blog.title
-    return render_template('blog/showablog.html', blog=blog,msg=msg,title=title)
+    return render_template('blog/showablog.html', blog=blog,title=title)
 
 
 @bp.route('/myblog/<id>')
@@ -74,18 +99,18 @@ def showmyblog(id):
          Blog.id==id). \
         join(User, User.id == Blog.uid). \
         first()
-    msg=''
+
     title=''
-    print(blog.uid)
-    print(current_user.id)
     if not blog:
-        title=msg="博客不存在"
+        flash("博客不存在")
+        title="博客不存在"
     elif blog.uid != current_user.id:
-        title = msg = "无权限访问"
+        flash( "无权限访问")
+        title = "无权限访问"
         blog=None
     else:
         title=blog.title
-    return render_template('blog/showablog.html', blog=blog,msg=msg,title=title)
+    return render_template('blog/showablog.html', blog=blog,title=title)
 
 
 @bp.route('/delete/<id>')

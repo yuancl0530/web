@@ -6,17 +6,17 @@
     <link rel="stylesheet" href="/static/style.css" />
     <link rel="stylesheet" href="/static/bootstrap/dist/css/bootstrap.css" />
     <title>{% block title %}{% endblock %} {{ title }}</title>
+    <script type="text/javascript" src="/static/scripts.js"> </script>
     {% endblock %}
 </head>
 <body>
 <div class="container">
-    {% if  msg %}
-    <div class="alert">
-        <script type="text/javascript">
-            alert("{{msg}}")
-        </script>
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" onclick="dismiss('alert')">&times;</button>
+        {{message}}
     </div>
-    {% endif %}
+    {% endfor %}
     <div class="navbar">
         <ul>
             <li><a href="/blog">博客广场</a></li>
@@ -41,14 +41,6 @@
         </div>
         {% endblock %}
     </div>
-
-
-        <!--<div class="grid">-->
-            <!--<div class="unit one-third center-on-mobiles">-->
-                <!--<p >&copy; Copyright 2018 by Chenglei Yuan</p>-->
-            <!--</div>-->
-        <!--</div>-->
-
 
 </div>
 </body>

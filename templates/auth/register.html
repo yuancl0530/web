@@ -1,16 +1,16 @@
 {% extends "base.html"%}
 {% block head %}
 {{super()}}
-<script type="text/javascript" src="/static/register.js"> </script>
+<script type="text/javascript" src="/static/scripts.js"> </script>
 {% endblock %}
 
 {% block content %}
 
     <div class="register">
-        <form method="post" onsubmit="return check()" action="">
+        <form method="post" onsubmit="return register_check()" action="">
             <div class="form-group">
                 <label for="register_username">用户名</label>
-                <input type="text" class="form-control" id="register_username" placeholder="用户名" name="username">
+                <input type="text" class="form-control" id="register_username" placeholder="可包含字母，下划线，长度不超过20" name="username">
             </div>
             <div class="form-group">
                 <label for="register_password">密码</label>

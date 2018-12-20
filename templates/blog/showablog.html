@@ -4,6 +4,13 @@
     <link rel="stylesheet" href="/static/blog.css" />
 {%endblock%}
 {% block content %}
-<h2>{{blog.title}}</h2>
-<p>{{blog.text}}</p>
+<div class="showablog">
+    <h2>{{blog.title}}</h2>
+    {% if current_user.id == blog.uid %}
+    <a href="/blog/edit/{{blog.id}}">编辑</a>
+    <a href="/blog/delete/{{blog.id}}">删除</a>
+    {% endif %}
+    <hr>
+    <p>{{blog.text}}</p>
+</div>
 {% endblock %}

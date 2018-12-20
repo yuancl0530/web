@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, request, redirect, make_response
+from flask import Blueprint, render_template, request, redirect, make_response, flash
+from flask_login import login_user, logout_user, login_required, current_user
 from .model import User, Log
 from . import db, login_manager
-from flask_login import login_user, logout_user, login_required, current_user
 
 
 bp = Blueprint('auth', __name__, url_prefix='/')
@@ -24,8 +24,8 @@ def login():
     if request.method == 'POST':
         u = User.query.filter_by(username=request.form['username']).first()
         if not u or not u.verify_password(request.form['password']):
-            msg = '用户名或密码错误'
-            response = make_response(render_template("auth/login.html", title=title, msg=msg))
+            flash('用户名或密码错误')
+            response = make_response(render_template("auth/login.html", title=title))
             return response
         login_user(u)
         Logs.login(u.id)
@@ -52,17 +52,17 @@ def register():
         u.major = request.form['major']
         u.phone = request.form['phone']
         if not u.username:
-            msg = "用户名不能为空"
-            return render_template("auth/register.html", msg=msg)
+            flash("用户名不能为空")
+            return render_template("auth/register.html")
         if User.query.filter_by(username=u.username).first():
-            msg = "用户名已存在"
-            return render_template("auth/register.html", msg=msg)
+            flash("用户名已存在")
+            return render_template("auth/register.html")
         try:
             db.session.add(u)
             db.session.commit()
         except :
-            msg = "系统错误"
-            return render_template("auth/register.html", msg=msg)
+            flash("系统错误")
+            return render_template("auth/register.html")
         return redirect('/login')
     return render_template("auth/register.html")
 
@@ -89,3 +89,6 @@ class Logs():
         if u:
             Logs.logs('user ' + u.username + ' logout', uid=u.id)
 
+@bp.errorhandler(404)
+def page_not_found():
+    return render_template('404.html'),404

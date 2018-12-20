@@ -1,8 +1,12 @@
 {% extends "base.html"%}
+{% block head %}
+{{super()}}
+<script type="text/javascript" src="/static/scripts.js"> </script>
+{% endblock %}
 
 {% block content %}
     <div class="login">
-        <form method="post" action="">
+        <form method="post" action="" onsubmit="return login_check()">
             <div class="form-group">
                 <label for="login_username">用户名</label>
                 <input type="text" class="form-control" id="login_username" placeholder="用户名" name="username">

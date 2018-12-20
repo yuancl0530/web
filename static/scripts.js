@@ -1,12 +1,11 @@
-function check() {
+function register_check() {
     var username = document.getElementById("register_username");
-    if (username.value.length == 0){
-        alert("用户名不能为空");
-        username.focus();
-        return false;
-    }
-    else if (username.value.length > 15){
-        alert("用户名长度不能超过15");
+    var reg = /^[a-zA-Z_]{1,20}$/
+    console.log(reg.test(username.value))
+
+
+    if (!reg.test(username.value)){
+        alert("用户名不合法\n可包含字母，下划线，并且长度不超过20");
         username.focus();
         return false;
     }
@@ -45,4 +44,25 @@ function check() {
 
 function writeablog() {
     window.location.href='/blog/newblog'
+}
+
+function login_check() {
+    var username = document.getElementById('login_username');
+    var password = document.getElementById('login_password');
+
+    if (username.value.length == 0){
+        alert('用户名不能为空');
+        username.focus();
+        return false;
+    }
+    return true;
+}
+
+
+function dismiss(s) {
+    var dom = document.getElementsByClassName(s)
+    for (var i = 0;i < dom.length;++i){
+        dom[i].style.display='none';
+    }
+
 }
