@@ -12,7 +12,8 @@ from flaskr import auth
 app.register_blueprint(auth.bp)
 from flaskr import blog
 app.register_blueprint(blog.bp)
-
+from flaskr import admin
+app.register_blueprint(admin.bp)
 app.config.from_object(config[os.getenv('FLASK_ENV')])
 
 db.init_app(app)

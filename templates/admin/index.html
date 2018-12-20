@@ -1,0 +1,11 @@
+{% extends "base.html"%}
+{% block head %}
+{{super()}}
+<script type="text/javascript" src="/static/scripts.js"> </script>
+{% endblock %}
+
+{% block content %}
+    <a href="/admin/user">用户管理</a>
+    <a href="">博客管理</a>
+    <a href="/admin/log">日志查看</a>
+{% endblock %}

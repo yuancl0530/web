@@ -22,9 +22,12 @@
             <li><a href="/">首页</a></li>
             <li><a href="/blog">博客广场</a></li>
             <li><a href="/blog/myblog">我的博客</a></li>
+            {% if current_user.admin%}
+            <li><a href="/admin">后台管理</a></li>
+            {% endif %}
             <div class="nav_login">
                 {% if current_user.is_authenticated%}
-
+                <li><a href="">{{current_user.username}}</a></li>
                 <li><a href="/logout">登出</a></li>
                 {% else %}
                 <li><a href="/login">登录</a></li>

@@ -13,6 +13,7 @@ class User(UserMixin, db.Model):
     school = db.Column(db.String(20), nullable=False)
     major = db.Column(db.String(20), nullable=False)
     phone = db.Column(db.String(11), nullable=False)
+    admin = db.Column(db.Boolean, default=False)
 
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
