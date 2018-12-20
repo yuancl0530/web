@@ -14,7 +14,6 @@ def load_user(id):
 
 
 @bp.route('/')
-@login_required
 def index():
     return render_template("base.html", title='欢迎')
 

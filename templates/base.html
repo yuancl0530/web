@@ -19,6 +19,7 @@
     {% endfor %}
     <div class="navbar">
         <ul>
+            <li><a href="/">首页</a></li>
             <li><a href="/blog">博客广场</a></li>
             <li><a href="/blog/myblog">我的博客</a></li>
             <div class="nav_login">
@@ -35,9 +36,13 @@
     <div id="content">
         {% block content%}
         <div class="jumbotron">
-          <h1>Hello, {{current_user.username}}</h1>
-          <p>欢迎来到博客世界</p>
-          <p><a class="btn btn-primary btn-lg" href="/blog/newblog" role="button">写博客</a></p>
+            <h1>Hello, {{current_user.username}}</h1>
+            <p>欢迎来到博客世界</p>
+            {% if current_user.is_authenticated%}
+            <p><a class="btn btn-primary btn-lg" href="/blog/newblog" role="button">写博客</a></p>
+            {% else %}
+            <p><a class="btn btn-primary btn-lg" href="/login" role="button">登录</a></p>
+            {% endif%}
         </div>
         {% endblock %}
     </div>
