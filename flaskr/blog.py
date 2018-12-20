@@ -1,3 +1,4 @@
+# coding: utf-8
 from flask import Blueprint, render_template, request, redirect, make_response, flash
 from . import db
 from .model import Blog, User

@@ -1,3 +1,4 @@
+# coding: utf-8
 from flask import Blueprint, render_template, request, redirect, make_response, flash
 from flask_login import login_user, logout_user, login_required, current_user
 from .model import User, Log
