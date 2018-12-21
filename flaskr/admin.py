@@ -54,7 +54,7 @@ def edit_user(id):
     try:
         db.session.add(u)
         db.session.commit()
-        flash(u.username+'已添加')
+        flash(u.username+'已修改')
     except :
         flash("系统错误")
     return redirect('/admin/user')
