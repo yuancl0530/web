@@ -1,10 +1,7 @@
-{% extends "base.html"%}
-{% block head %}
-{{super()}}
-<script type="text/javascript" src="/static/scripts.js"> </script>
-{% endblock %}
+{% extends "admin/index.html"%}
 
 {% block content %}
+    {{super()}}
     <table class="table">
         <tr>
             <th>用户名</th>
@@ -44,11 +41,41 @@
                     <button type="submit" class="btn btn-primary">修改</button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-primary" onclick="window.location.href='/admin/user/delete/{{user.id}}'">删除</button>
+                    <button type="button" class="btn btn-danger" onclick="window.location.href='/admin/user/delete/{{user.id}}'">删除</button>
                 </td>
             </form>
         </tr>
-
         {% endfor %}
+        <tr>
+            <form class="form-group"  method="post" action="/admin/user/edit/0">
+                <td>
+                    <input class="form-control" type="text" name='username' >
+                </td>
+                <td>
+                    <input class="form-control" type="password" name='password' value="" >
+                </td>
+                <td>
+                    <select class="btn btn-default dropdown-toggle" name="sex">
+                        <option value="male"  selected >男</option>
+                        <option value="female"   >女</option>
+                    </select>
+                </td>
+                <td>
+                    <input class="form-control" type="text" name='school' >
+                </td>
+                <td>
+                    <input class="form-control" type="text" name='major' >
+                </td>
+                <td>
+                    <input class="form-control" type="text" name='phone' >
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-success">添加</button>
+                </td>
+                <td>
+                    <button type="reset" class="btn btn-warning" >重置</button>
+                </td>
+            </form>
+        </tr>
     </table>
 {% endblock %}
